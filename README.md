@@ -9,9 +9,17 @@ This project is part of a research internship aiming to develop an AI system tha
 The goal of this project is to:
   - Enable users to upload an image via a Next.js frontend.
   - The image is then sent to a FastAPI backend.
-  - The backend computes a feature embedding of the input image using a pre-trained deep learning model (EfficientNet).
+  - The backend computes a feature embedding of the input image using a pre-trained deep learning model (EfficientNet-b0).
   - The system then compares this embedding against pre-computed embeddings of images from a local dataset.
   - Using cosine similarity, the backend returns the top 4 most similar images to the input image.
+
+Here is an example of some tests I did.
+
+![First test](public/similarity_test1.png)
+
+![Second test](public/similarity_test2.png)
+
+![Third test](public/similarity_test3.png)
 
 ---
 
