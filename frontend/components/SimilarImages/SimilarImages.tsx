@@ -34,16 +34,13 @@ export function SimilarImages({ images }: SimilarImagesProps) {
             <Card>
               <CardMedia
                 component="img"
-                height="140"
+                height="180"
                 image={img.url}
                 alt={`Similar image ${index + 1}`}
               />
               <CardContent>
                 <Typography variant="body2">
-                  {img.filename}
-                </Typography>
-                <Typography variant="body2">
-                  Similarity: {(img.similarity * 100).toFixed(2)}%
+                  <strong>{img.filename}</strong> - Similarity: {(img.similarity * 100).toFixed(2)}%
                 </Typography>
               </CardContent>
             </Card>

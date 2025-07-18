@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", minHeight: "100vh", px: 4, py: 6 }}>
       <Box sx={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
-        <ImageSelector />
+        <ImageSelector onSimilarImages={handleSimilarImages} />
       </Box>
 
       <Box sx={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "flex-start", pl: 4 }}>

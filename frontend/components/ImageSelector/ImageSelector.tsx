@@ -11,6 +11,12 @@ import {
 } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 
+export type SimilarImage = {
+  filename: string;
+  similarity: number;
+  url: string;
+};
+
 type ImageDimensions = {
   width: number;
   height: number;
@@ -21,9 +27,17 @@ type BackendResponse = {
   width: number;
   height: number;
   message: string;
+  similar_images: {
+    filename: string;
+    similarity: number;
+  }[];
 };
 
-export function ImageSelector() {
+type ImageSelectorProps = {
+  onSimilarImages: (images: SimilarImage[]) => void;
+};
+
+export function ImageSelector({ onSimilarImages }: ImageSelectorProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageDimensions, setImageDimensions] = useState<ImageDimensions | null>(null);
   const [backendResponse, setBackendResponse] = useState<BackendResponse | null>(null);
@@ -61,9 +75,18 @@ export function ImageSelector() {
             setSelectedImage(reader.result as string);
 
             try {
-              const response = await uploadImage(file);
+              const response: BackendResponse = await uploadImage(file);
               setBackendResponse(response);
-              console.log("Backend response:", response);
+
+              // Construire le tableau des images similaires avec url complète
+              const similarImages: SimilarImage[] = response.similar_images.map(img => ({
+                filename: img.filename,
+                similarity: img.similarity,
+                url: `http://127.0.0.1:8000/images_database/${img.filename}`, // adapte ici selon ta config backend
+              }));
+
+              onSimilarImages(similarImages);
+
             } catch (error) {
               console.error("Upload failed:", error);
             }
@@ -73,7 +96,7 @@ export function ImageSelector() {
       };
       reader.readAsDataURL(file);
     },
-    [],
+    [onSimilarImages],
   );
 
   return (

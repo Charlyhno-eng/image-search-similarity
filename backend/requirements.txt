@@ -6,3 +6,4 @@ torchvision
 efficientnet_pytorch
 scikit-learn
 numpy
+scikit-learn

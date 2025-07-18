@@ -2,14 +2,13 @@ from efficientnet_pytorch import EfficientNet
 from PIL import Image
 import torch
 import torchvision.transforms as transforms
+import torch.nn.functional as F
 import os
 import numpy as np
 
-# Load the pre-trained EfficientNet-B0 model
 model = EfficientNet.from_pretrained('efficientnet-b0')
 model.eval()
 
-# Prepare the image transformation
 transform = transforms.Compose([
     transforms.Resize(256),
     transforms.CenterCrop(224),
@@ -19,11 +18,12 @@ transform = transforms.Compose([
 
 def extract_embedding(image_path):
     image = Image.open(image_path).convert('RGB')
-    img_tensor = transform(image).unsqueeze(0)  # batch size 1
+    img_tensor = transform(image).unsqueeze(0)
     with torch.no_grad():
         features = model.extract_features(img_tensor)
-        embedding = features.flatten().numpy()
-    return embedding
+        pooled = F.adaptive_avg_pool2d(features, 1)
+        embedding = pooled.view(pooled.size(0), -1)
+    return embedding.squeeze(0).numpy()
 
 images_dir = 'images_database'
 embeddings_dir = 'embeddings'
@@ -35,4 +35,4 @@ for img_name in os.listdir(images_dir):
     embedding = extract_embedding(img_path)
     embedding_path = os.path.join(embeddings_dir, img_name + '.npy')
     np.save(embedding_path, embedding)
-    print(f"Embedding saved for {img_name}")
+    print(f"Saved embedding for {img_name} with shape {embedding.shape}")
