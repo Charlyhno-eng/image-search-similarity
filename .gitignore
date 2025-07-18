@@ -1,5 +1,6 @@
 # === Python / Backend ===
 venv/
+.venv/
 __pycache__/
 *.pyc
 *.pyo
@@ -10,8 +11,9 @@ embeddings/
 images/
 .DS_Store
 
-# Virtual environment
-venv/
+# Your images database
+images_database/
+embeddings/
 
 # Environment variables
 .env
