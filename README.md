@@ -48,6 +48,17 @@ cd backend
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 mkdir images_database embeddings
+```
+
+Then put your image database in the "images_database" folder. You need to encode all the images in your images_database/ folder into embedding vectors with EfficientNet (or another one of your choice), then store them in the embeddings/ folder. To do this, run the file "encode_embeddings.py".
+
+```bash
+python utils/encode_embeddings.py
+```
+
+Finally, run the backend API:
+
+```bash
 uvicorn main:app --reload
 ```
 
