@@ -13,13 +13,21 @@ The goal of this project is to:
   - The system then compares this embedding against pre-computed embeddings of images from a local dataset.
   - Using cosine similarity, the backend returns the top 5 most similar images to the input image.
 
-Here is an example of some tests I did.
+Here's an example of some of the tests I ran. EfficientNet offers several models ranging from B0 to B7. B0 is the fastest of all but offers the worst results. B7 is the slowest but is the most accurate. Since I ran my tests in a web application, I wanted it to be fast enough so I wouldn't have to wait. I ran a first test with the B0 version, which was very conclusive. Here are the results :
 
-![First test](public/similarity_test1.png)
+![First test](public/EfficientNet-B0_test1.png)
 
-![Second test](public/similarity_test2.png)
+![Second test](public/EfficientNet-B0_test2.png)
 
-![Third test](public/similarity_test3.png)
+![Third test](public/EfficientNet-B0_test3.png)
+
+Since I had excellent execution speed for the B0 model and really conclusive results, I decided to switch to the B4 model. There is a very slight latency (with a database of almost 700 images) but the results are really better. For web application performance reasons, I did not test with a model higher than B4. Here are the tests for the B4 model :
+
+![Fourth test](public/EfficientNet-B4_test1.png)
+
+![Fifth test](public/EfficientNet-B4_test2.png)
+
+![Sixth test](public/EfficientNet-B4_test3.png)
 
 ---
 
